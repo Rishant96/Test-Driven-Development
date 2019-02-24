@@ -1,6 +1,7 @@
 from django.urls import reverse
 from django.test import TestCase
 from django.http import HttpRequest
+from django.template.loader import render_to_string
 
 import lists.views as lists_views
 
@@ -14,6 +15,5 @@ class HomePageTest(TestCase):
     def test_home_page_returns_correct_html(self):
         request = HttpRequest()
         response = lists_views.home_page(request)
-        self.assertTrue(response.content.startswith(b'<html>'))
-        self.assertIn(b'<title>To-Do Lists</title>', response.content)
-        self.assertTrue(response.content.endswith(b'</html>'))
+        expected_html = render_to_string('lists/home.html')
+        self.assertEqual(response.content.decode(), expected_html)

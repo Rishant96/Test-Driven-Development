@@ -1,7 +1,9 @@
+from django.urls import reverse
 from django.test import TestCase
 
 
-class SmokeTest(TestCase):
+class HomePageTest(TestCase):
 
-    def test_bad_maths(self):
-        self.assertEqual(1, 3)
+    def test_root_url_resolves_to_home_page_view(self):
+        found = reverse('lists:home')
+        self.assertEqual(found, '/')

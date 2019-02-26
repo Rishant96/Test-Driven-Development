@@ -1,0 +1,4 @@
+1. Code smell:  POST test is too long?
+2. Don't save blank items for every request
+3. Display multiple items in the table
+4. Support more than one list!

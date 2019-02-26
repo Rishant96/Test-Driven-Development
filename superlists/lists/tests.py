@@ -107,18 +107,18 @@ class HomePageTest(TestCase):
         request.POST['item_next'] = 'A new list item'
 
         response = lists_views.home_page(request)
-        self.assertIn('A new list item', response.content.decode())
-        expected_html = render_to_string(
-            'lists/home.html',
-            {
-                'new_item': 'A new list item'
-            }
-        )
-        cleaned_html = clean_html_of_csrf_for_local_comparison(response.content
-                                                               .decode())
-        cleaned_html, expected_html = trim_each_line_in_string(cleaned_html),\
-            trim_each_line_in_string(expected_html)
-        self.assertEqual(cleaned_html, expected_html)
+
+        self.assertEqual(Item.objects.count(), 1)
+        new_item = Item.objects.first()
+        self.assertEqual(new_item.text, 'A new list item')
+
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['location'], '/')
+
+    def test_home_page_only_saves_items_when_necessary(self):
+        request = HttpRequest()
+        lists_views.home_page(request)
+        self.assertEqual(Item.objects.count(), 0)
 
 
 class ItemModelTest(TestCase):

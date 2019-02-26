@@ -1,8 +1,11 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import redirect, render
+
+from lists.models import Item
 
 
 def home_page(request):
-    return render(request, 'lists/home.html', {
-        'new_item': request.POST.get('item_next', ''),
-    })
+    if request.method == 'POST':
+        Item.objects.create(text=request.POST['item_next'])
+        return redirect('/')
+
+    return render(request, 'lists/home.html')

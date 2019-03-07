@@ -1,4 +1,6 @@
 1. Code smell:  POST test is too long?           (DONE)
 2. Don't save blank items for every request      (DONE)
-3. Display multiple items in the table
+3. Display multiple items in the table           (DONE)
 4. Support more than one list!
+5. Get FTs to clean after themselves             (DONE)
+6. 
